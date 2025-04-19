@@ -326,6 +326,27 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <!-- Step 2 Navigation -->
+                                <div class="flex justify-between pt-6">
+                                    <button type="button"
+                                        @click="prevStep"
+                                        class="inline-flex items-center px-6 py-3 border border-gray-300 shadow-sm text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500">
+                                        <svg class="mr-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                                        </svg>
+                                        Previous
+                                    </button>
+                                    <button type="button"
+                                        @click="nextStep"
+                                        :disabled="!selectedDate || !selectedTime"
+                                        class="inline-flex items-center px-6 py-3 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 disabled:opacity-50 disabled:cursor-not-allowed">
+                                        Next Step
+                                        <svg class="ml-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                        </svg>
+                                    </button>
+                                </div>
                             </div>
 
                             <!-- Step 3: Personal Information -->
@@ -361,6 +382,27 @@
                                                 class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 transition-colors duration-200"></textarea>
                                         </div>
                                     </div>
+                                </div>
+
+                                <!-- Step 3 Navigation -->
+                                <div class="flex justify-between pt-6">
+                                    <button type="button"
+                                        @click="prevStep"
+                                        class="inline-flex items-center px-6 py-3 border border-gray-300 shadow-sm text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500">
+                                        <svg class="mr-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                                        </svg>
+                                        Previous
+                                    </button>
+                                    <button type="button"
+                                        @click="nextStep"
+                                        :disabled="!bookingForm.name || !bookingForm.email || !bookingForm.phone || !bookingForm.subject"
+                                        class="inline-flex items-center px-6 py-3 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 disabled:opacity-50 disabled:cursor-not-allowed">
+                                        Next Step
+                                        <svg class="ml-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                        </svg>
+                                    </button>
                                 </div>
                             </div>
 
@@ -601,7 +643,7 @@
                             </div>
                             <div class="flex items-center text-gray-300">
                                 <svg class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                 </svg>
                                 <span>info@mentoach.com</span>
                             </div>
@@ -822,6 +864,15 @@ const whyChooseUs = [
     }
 ];
 
+// Initialize refs
+const selectedDate = ref(null);
+const selectedTime = ref(null);
+const showBookingSuccess = ref(false);
+const showContactSuccess = ref(false);
+const currentStep = ref(1);
+const isOpen = ref(false);
+const totalSteps = 4;
+
 // Booking form
 const bookingForm = useForm({
     service: '',
@@ -837,37 +888,41 @@ const bookingForm = useForm({
 const page = usePage();
 
 const submitBooking = () => {
-    if (!bookingForm.service || !selectedDate.value || !selectedTime.value || !bookingForm.subject) {
+    if (!bookingForm.service || !selectedDate.value || !selectedTime.value || !bookingForm.name || !bookingForm.email || !bookingForm.phone || !bookingForm.subject) {
         alert('Please fill in all required fields');
         return;
     }
 
     try {
-        const dateObj = new Date(selectedDate.value);
-        const [hours, minutes] = selectedTime.value.split(':');
-        dateObj.setHours(parseInt(hours), parseInt(minutes), 0, 0);
+        // Format the date and time for submission
+        const dateString = selectedDate.value.toISOString().split('T')[0];
+        const timeString = selectedTime.value;
+        bookingForm.preferred_date = `${dateString} ${timeString}:00`;
 
-        bookingForm.preferred_date = dateObj.toISOString();
+        console.log('Date String:', dateString);
+        console.log('Time String:', timeString);
+        console.log('Final Preferred Date:', bookingForm.preferred_date);
 
         bookingForm.post(route('enquiries.store'), {
             preserveScroll: true,
             onSuccess: () => {
+                showBookingSuccess.value = true;
                 bookingForm.reset();
                 selectedDate.value = null;
                 selectedTime.value = null;
                 currentStep.value = 1;
-                showBookingSuccess.value = true;
             },
             onError: (errors) => {
                 let errorMessage = 'Please check the following:\n';
                 Object.entries(errors).forEach(([field, message]) => {
-                    errorMessage += `- ${field}: ${message}\n`;
+                    errorMessage += `${message}\n`;
                 });
                 alert(errorMessage);
             }
         });
     } catch (error) {
-        alert('There was an error submitting your enquiry. Please try again.');
+        console.error('Submission Error:', error);
+        alert('There was an error submitting your booking. Please try again.');
     }
 };
 
@@ -893,19 +948,9 @@ const updateContactReCaptchaToken = (token) => {
     contactForm['g-recaptcha-token'] = token;
 };
 
-const showBookingSuccess = ref(false);
-const showContactSuccess = ref(false);
-
 const availableTimeSlots = computed(() => [
     '09:00', '10:00', '11:00', '13:00', '14:00', '15:00', '16:00'
 ]);
-
-const selectedDate = ref(null);
-const selectedTime = ref(null);
-
-// Add these new refs for multi-step form
-const currentStep = ref(1);
-const totalSteps = 4;
 
 const steps = [
     { number: 1, name: 'Service Selection', description: 'Choose your preferred service' },
@@ -930,10 +975,28 @@ const canProceedToNextStep = computed(() => {
 
 // Update nextStep function
 const nextStep = () => {
-    if (!canProceedToNextStep.value) {
-        alert('Please fill in all required fields before proceeding');
-        return;
+    // Validate current step before proceeding
+    switch (currentStep.value) {
+        case 1:
+            if (!bookingForm.service) {
+                alert('Please select a service to continue');
+                return;
+            }
+            break;
+        case 2:
+            if (!selectedDate.value || !selectedTime.value) {
+                alert('Please select both date and time to continue');
+                return;
+            }
+            break;
+        case 3:
+            if (!bookingForm.name || !bookingForm.email || !bookingForm.phone || !bookingForm.subject) {
+                alert('Please fill in all required fields to continue');
+                return;
+            }
+            break;
     }
+
     if (currentStep.value < totalSteps) {
         currentStep.value++;
     }
@@ -945,12 +1008,12 @@ const prevStep = () => {
     }
 };
 
-// First, add the isOpen ref in the script setup section after other refs
-const isOpen = ref(false);
-
 const updateBookingReCaptchaToken = (token) => {
     bookingForm['g-recaptcha-token'] = token;
 };
+
+// Add this log to check selectedTime
+console.log('Selected Time:', selectedTime);
 </script>
 
 <style>

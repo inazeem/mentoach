@@ -12,7 +12,7 @@ class VerifyReCaptcha
     public function handle(Request $request, Closure $next): Response
     {
         if (!$request->has('g-recaptcha-token')) {
-            return response()->json(['message' => 'ReCaptcha token is required'], 400);
+            return response()->json(['error' => 'ReCAPTCHA token is required'], 422);
         }
 
         $response = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
@@ -22,12 +22,13 @@ class VerifyReCaptcha
         ]);
 
         if (!$response->successful() || !$response->json('success')) {
-            return response()->json(['message' => 'Invalid ReCaptcha token'], 400);
+            return response()->json(['error' => 'Invalid ReCAPTCHA token'], 422);
         }
 
-        // Check score if needed (0.0 - 1.0, 1.0 being very likely a good interaction)
-        if ($response->json('score') < 0.5) {
-            return response()->json(['message' => 'Suspicious activity detected'], 400);
+        // Optional: Check score for v3
+        $score = $response->json('score');
+        if ($score !== null && $score < 0.5) { // Adjust threshold as needed
+            return response()->json(['error' => 'ReCAPTCHA score too low'], 422);
         }
 
         return $next($request);

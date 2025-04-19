@@ -26,6 +26,10 @@ Route::get('/', function () {
     ]);
 });
 
+// Public Routes
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+Route::post('/enquiries', [EnquiryController::class, 'store'])->name('enquiries.store');
+
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -35,19 +39,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Appointment Routes
     Route::resource('appointments', AppointmentController::class);
 
-    // Enquiry routes
+    // Enquiry routes (except store)
     Route::prefix('enquiries')->name('enquiries.')->group(function () {
         Route::get('/', [EnquiryController::class, 'index'])->name('index');
         Route::get('/{enquiry}', [EnquiryController::class, 'show'])->name('show');
-        Route::post('/', [EnquiryController::class, 'store'])->name('store');
         Route::post('/{enquiry}/assign', [EnquiryController::class, 'assign'])->name('assign');
         Route::post('/{enquiry}/convert', [EnquiryController::class, 'convert'])->name('convert');
         Route::post('/{enquiry}/reject', [EnquiryController::class, 'reject'])->name('reject');
     });
 });
-
-// Contact Form Route
-Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
 Route::middleware('guest')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])

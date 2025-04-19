@@ -10,20 +10,22 @@ use Inertia\Inertia;
 use Inertia\Response;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\NewEnquiryNotification;
 use App\Mail\EnquiryAssignedNotification;
 use App\Mail\EnquiryRejectedNotification;
 use App\Mail\EnquiryConvertedNotification;
+use Illuminate\Routing\Controller as BaseController;
 
-class EnquiryController extends Controller
+class EnquiryController extends BaseController
 {
-    use AuthorizesRequests;
+    use AuthorizesRequests, ValidatesRequests, DispatchesJobs;
 
     public function __construct()
     {
         $this->middleware('auth')->except(['store']);
-        $this->middleware('recaptcha')->only('store');
     }
 
     public function index(): Response
