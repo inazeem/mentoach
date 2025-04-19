@@ -50,8 +50,18 @@ class EnquiryController extends BaseController
             'message' => 'nullable|string',
             'service' => 'required|string|max:255',
             'preferred_date' => 'required|date',
-            'g-recaptcha-token' => 'required|string',
+            'g-recaptcha-token' => 'required|string'
         ]);
+
+        // Verify reCAPTCHA
+        $recaptcha = new \ReCaptcha\ReCaptcha(config('services.recaptcha.secret_key'));
+        $resp = $recaptcha->setExpectedAction('booking')
+            ->setScoreThreshold(0.5)
+            ->verify($validated['g-recaptcha-token'], $request->ip());
+
+        if (!$resp->isSuccess()) {
+            return redirect()->back()->withErrors(['g-recaptcha-token' => 'Failed to verify reCAPTCHA']);
+        }
 
         // Remove reCAPTCHA token from enquiry data
         $enquiryData = array_diff_key($validated, ['g-recaptcha-token' => '']);

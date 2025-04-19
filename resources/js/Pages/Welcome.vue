@@ -882,7 +882,7 @@ const bookingForm = useForm({
     phone: '',
     subject: '',
     message: '',
-    'g-recaptcha-token': '',
+    'g-recaptcha-token': ''
 });
 
 const page = usePage();
