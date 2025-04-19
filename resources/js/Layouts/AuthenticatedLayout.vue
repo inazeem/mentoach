@@ -49,6 +49,21 @@ const showingNavigationDropdown = ref(false);
                                 >
                                     Enquiries
                                 </NavLink>
+                                <!-- Admin Navigation Links -->
+                                <template v-if="$page.props.auth.user.role === 'admin'">
+                                    <NavLink
+                                        :href="route('admin.users.index')"
+                                        :active="route().current('admin.users.*')"
+                                    >
+                                        Users
+                                    </NavLink>
+                                    <NavLink
+                                        :href="route('admin.settings.index')"
+                                        :active="route().current('admin.settings.*')"
+                                    >
+                                        Settings
+                                    </NavLink>
+                                </template>
                             </div>
                         </div>
 
@@ -168,6 +183,21 @@ const showingNavigationDropdown = ref(false);
                         >
                             Enquiries
                         </ResponsiveNavLink>
+                        <!-- Responsive Admin Navigation Links -->
+                        <template v-if="$page.props.auth.user.role === 'admin'">
+                            <ResponsiveNavLink
+                                :href="route('admin.users.index')"
+                                :active="route().current('admin.users.*')"
+                            >
+                                Users
+                            </ResponsiveNavLink>
+                            <ResponsiveNavLink
+                                :href="route('admin.settings.index')"
+                                :active="route().current('admin.settings.*')"
+                            >
+                                Settings
+                            </ResponsiveNavLink>
+                        </template>
                     </div>
 
                     <!-- Responsive Settings Options -->

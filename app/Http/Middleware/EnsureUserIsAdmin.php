@@ -10,8 +10,8 @@ class EnsureUserIsAdmin
 {
     public function handle(Request $request, Closure $next): Response
     {
-        if (!$request->user() || $request->user()->role !== 'admin') {
-            return redirect()->route('dashboard')->with('error', 'Unauthorized access.');
+        if (!$request->user() || !$request->user()->isAdmin()) {
+            return redirect()->route('dashboard')->with('error', 'Unauthorized access. Admin privileges required.');
         }
 
         return $next($request);
