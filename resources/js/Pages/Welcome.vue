@@ -1,5 +1,16 @@
 <template>
-    <Head title="Mentoach - Guiding Your Path, Empowering Your Future" />
+    <Head>
+        <title>Mentoach - Guiding Your Path, Empowering Your Future</title>
+        <meta name="description" content="Transform your career with Mentoach's professional mentoring services. Expert career coaching, student mentorship, motivational speaking, and workshops for personal and professional growth." />
+        <meta name="keywords" content="career coaching, professional mentoring, student mentorship, motivational speaking, career development, personal growth" />
+        <meta property="og:title" content="Mentoach - Professional Mentoring & Career Coaching" />
+        <meta property="og:description" content="Transform your career with Mentoach's professional mentoring services. Expert guidance for your professional journey." />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="/images/og-mentoach.jpg" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Mentoach - Professional Mentoring & Career Coaching" />
+        <meta name="twitter:description" content="Transform your career with Mentoach's professional mentoring services. Expert guidance for your professional journey." />
+    </Head>
     <div class="min-h-screen bg-gray-50">
         <!-- Navigation -->
         <nav class="bg-white shadow-md">
@@ -728,7 +739,7 @@
 
 <script setup>
 import { Head, Link } from '@inertiajs/vue3';
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import DatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
 import { useForm, usePage } from '@inertiajs/vue3';
@@ -1014,6 +1025,64 @@ const updateBookingReCaptchaToken = (token) => {
 
 // Add this log to check selectedTime
 console.log('Selected Time:', selectedTime);
+
+// Add structured data
+const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Mentoach",
+    "description": "Professional mentoring and career coaching services",
+    "image": "/logo.png",
+    "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "123 Business Street",
+        "addressLocality": "London",
+        "addressCountry": "UK"
+    },
+    "offers": {
+        "@type": "Offer",
+        "name": "Career Coaching Services",
+        "description": "Personalized career coaching and mentorship"
+    },
+    "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Mentoring Services",
+        "itemListElement": [
+            {
+                "@type": "Offer",
+                "itemOffered": {
+                    "@type": "Service",
+                    "name": "Career Coaching",
+                    "description": "Personalized career coaching to help you clarify goals"
+                }
+            },
+            {
+                "@type": "Offer",
+                "itemOffered": {
+                    "@type": "Service",
+                    "name": "Student Mentorship",
+                    "description": "Expert mentorship programs for students"
+                }
+            },
+            {
+                "@type": "Offer",
+                "itemOffered": {
+                    "@type": "Service",
+                    "name": "Motivational Speaking",
+                    "description": "Inspiring and dynamic public speaking sessions"
+                }
+            }
+        ]
+    }
+};
+
+// Add mounted hook to inject structured data
+onMounted(() => {
+    const script = document.createElement('script');
+    script.setAttribute('type', 'application/ld+json');
+    script.textContent = JSON.stringify(structuredData);
+    document.head.appendChild(script);
+});
 </script>
 
 <style>
