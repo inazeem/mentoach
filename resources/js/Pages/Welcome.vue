@@ -10,11 +10,11 @@
                             <img src="/logo.png" alt="Mentoach Logo" class="h-16 w-auto">
                         </div>
                         <div class="hidden md:flex space-x-8">
-                            <a href="#services" class="text-gray-700 hover:text-indigo-600 font-medium text-base">Services</a>
-                            <a href="#about" class="text-gray-700 hover:text-indigo-600 font-medium text-base">About</a>
-                            <a href="#testimonials" class="text-gray-700 hover:text-indigo-600 font-medium text-base">Testimonials</a>
-                            <a href="#booking" class="text-gray-700 hover:text-indigo-600 font-medium text-base">Book a Session</a>
-                            <a href="#contact" class="text-gray-700 hover:text-indigo-600 font-medium text-base">Contact</a>
+                            <a href="#services" class="text-navy-800 hover:text-orange-500 font-medium text-base">Services</a>
+                            <a href="#about" class="text-navy-800 hover:text-orange-500 font-medium text-base">About</a>
+                            <a href="#testimonials" class="text-navy-800 hover:text-orange-500 font-medium text-base">Testimonials</a>
+                            <a href="#booking" class="text-navy-800 hover:text-orange-500 font-medium text-base">Book a Session</a>
+                            <a href="#contact" class="text-navy-800 hover:text-orange-500 font-medium text-base">Contact</a>
                         </div>
                     </div>
                     
@@ -42,11 +42,11 @@
                             </Link>
                         </template>
                         <template v-else>
-                            <Link :href="route('login')" class="text-gray-700 hover:text-indigo-600 font-medium">
+                            <Link :href="route('login')" class="text-navy-800 hover:text-orange-500 font-medium">
                                 Log in
                             </Link>
                             <Link v-if="canRegister" :href="route('register')" 
-                                class="bg-indigo-600 text-white px-5 py-2.5 rounded-md hover:bg-indigo-700 font-medium">
+                                class="bg-orange-500 text-white px-5 py-2.5 rounded-md hover:bg-orange-600 font-medium">
                                 Register
                             </Link>
                         </template>
@@ -107,14 +107,14 @@
                         <div class="text-center">
                             <h1 class="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
                                 <span class="block">Guiding Your Path,</span>
-                                <span class="block text-indigo-600">Empowering Your Future</span>
+                                <span class="block text-orange-500">Empowering Your Future</span>
                             </h1>
                             <p class="mt-3 max-w-md mx-auto text-base text-gray-500 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl">
                                 At Mentoach, we believe in the power of mentorship and career coaching to shape futures. Join us and take the first step towards success and fulfillment.
                             </p>
                             <div class="mt-5 max-w-md mx-auto sm:flex sm:justify-center md:mt-8">
                                 <div class="rounded-md shadow">
-                                    <a href="#booking" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10">
+                                    <a href="#booking" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-orange-500 hover:bg-orange-600 md:py-4 md:text-lg md:px-10">
                                         Book a Session
                                     </a>
                                 </div>
@@ -129,7 +129,7 @@
         <div id="services" class="py-24 bg-gradient-to-b from-gray-50 via-white to-gray-50">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-20">
-                    <span class="text-indigo-600 font-semibold tracking-wide uppercase text-sm">What We Offer</span>
+                    <span class="text-orange-500 font-semibold tracking-wide uppercase text-sm">What We Offer</span>
                     <h2 class="mt-3 text-4xl md:text-5xl font-bold text-gray-900 tracking-tight">
                         Transform Your Journey
                     </h2>
@@ -146,14 +146,14 @@
                         <!-- Service Card -->
                         <div class="relative bg-white rounded-2xl shadow-xl overflow-hidden">
                             <!-- Top Accent Border -->
-                            <div class="h-2 bg-indigo-500"></div>
+                            <div class="h-2 bg-orange-500"></div>
                             
                             <div class="grid lg:grid-cols-3 gap-0">
                                 <!-- Content Section -->
                                 <div class="p-8 lg:p-10 lg:col-span-2">
                                     <div class="flex items-center space-x-4 mb-6">
-                                        <div class="p-3 rounded-xl bg-indigo-100">
-                                            <svg class="h-8 w-8 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <div class="p-3 rounded-xl bg-orange-100">
+                                            <svg class="h-8 w-8 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" :d="service.icon" />
                                             </svg>
                                         </div>
@@ -166,8 +166,8 @@
                                     <div class="grid md:grid-cols-2 gap-6">
                                         <div v-for="feature in service.features" :key="feature"
                                             class="flex items-start">
-                                            <div class="flex-shrink-0 h-6 w-6 rounded-full bg-indigo-100 flex items-center justify-center mt-1">
-                                                <svg class="h-4 w-4 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <div class="flex-shrink-0 h-6 w-6 rounded-full bg-orange-100 flex items-center justify-center mt-1">
+                                                <svg class="h-4 w-4 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
                                                 </svg>
                                             </div>
@@ -204,7 +204,7 @@
                     <div v-for="reason in whyChooseUs" :key="reason.title" 
                         class="relative bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 flex items-start space-x-6">
                         <div class="h-12 w-12 flex-shrink-0">
-                            <div class="h-full w-full flex items-center justify-center rounded-xl bg-indigo-500 text-white transform transition-transform duration-300 hover:scale-110">
+                            <div class="h-full w-full flex items-center justify-center rounded-xl bg-navy-800 text-white transform transition-transform duration-300 hover:scale-110">
                                 <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" :d="reason.icon" />
                                 </svg>
@@ -213,10 +213,10 @@
                         <div class="flex-1">
                             <div class="flex items-center justify-between mb-2">
                                 <h3 class="text-xl font-bold text-gray-900">{{ reason.title }}</h3>
-                                <span class="text-indigo-600 font-semibold">{{ reason.stats }}</span>
+                                <span class="text-orange-500 font-semibold">{{ reason.stats }}</span>
                             </div>
                             <p class="text-gray-600 text-base leading-relaxed">{{ reason.description }}</p>
-                            <p class="text-sm text-indigo-500 mt-2 font-medium">{{ reason.statsText }}</p>
+                            <p class="text-sm text-orange-500 mt-2 font-medium">{{ reason.statsText }}</p>
                         </div>
                     </div>
                 </div>
@@ -241,24 +241,24 @@
                             ]">
                                 <div class="flex items-center">
                                     <div :class="[
-                                        currentStep >= step.number ? 'bg-indigo-600' : 'bg-gray-200',
+                                        currentStep >= step.number ? 'bg-orange-500' : 'bg-gray-200',
                                         'rounded-full transition-colors duration-200 h-8 w-8 flex items-center justify-center'
                                     ]">
                                         <span :class="[
-                                            currentStep >= step.number ? 'text-white' : 'text-gray-500',
+                                            currentStep >= step.number ? 'text-orange-500' : 'text-gray-500',
                                             'text-sm font-medium'
                                         ]">{{ step.number }}</span>
                                     </div>
                                     <div class="hidden sm:block ml-4">
                                         <p :class="[
-                                            currentStep >= step.number ? 'text-indigo-600' : 'text-gray-500',
+                                            currentStep >= step.number ? 'text-orange-500' : 'text-gray-500',
                                             'text-sm font-medium'
                                         ]">{{ step.name }}</p>
                                         <p class="text-sm text-gray-400">{{ step.description }}</p>
                                     </div>
                                 </div>
                                 <div v-if="index !== steps.length - 1" :class="[
-                                    currentStep > step.number ? 'bg-indigo-600' : 'bg-gray-200',
+                                    currentStep > step.number ? 'bg-orange-500' : 'bg-gray-200',
                                     'hidden sm:block absolute top-4 -right-4 h-0.5 w-16 transition-colors duration-200'
                                 ]" />
                             </li>
@@ -283,11 +283,11 @@
                                         :class="[
                                             'cursor-pointer p-6 rounded-xl transition-all duration-200',
                                             bookingForm.service === service.title
-                                                ? 'bg-indigo-50 border-2 border-indigo-500 shadow-md'
-                                                : 'bg-gray-50 border-2 border-transparent hover:bg-indigo-50'
+                                                ? 'bg-orange-50 border-2 border-orange-500 shadow-md'
+                                                : 'bg-gray-50 border-2 border-transparent hover:bg-orange-50'
                                         ]">
                                         <div class="flex items-center">
-                                            <svg class="h-8 w-8 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <svg class="h-8 w-8 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" :d="service.icon" />
                                             </svg>
                                             <h3 class="ml-3 text-lg font-medium text-gray-900">{{ service.title }}</h3>
@@ -318,8 +318,8 @@
                                                 :class="[
                                                     'px-4 py-3 text-sm rounded-lg transition-colors duration-200',
                                                     selectedTime === time
-                                                        ? 'bg-indigo-600 text-white shadow-md'
-                                                        : 'bg-gray-50 text-gray-700 hover:bg-indigo-50'
+                                                        ? 'bg-orange-600 text-white shadow-md'
+                                                        : 'bg-gray-50 text-gray-700 hover:bg-orange-50'
                                                 ]">
                                                 {{ time }}
                                             </button>
@@ -335,30 +335,30 @@
                                         <div>
                                             <label class="block text-sm font-medium text-gray-700">Name</label>
                                             <input type="text" v-model="bookingForm.name" required
-                                                class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 transition-colors duration-200">
+                                                class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 transition-colors duration-200">
                                         </div>
                                         <div>
                                             <label class="block text-sm font-medium text-gray-700">Email</label>
                                             <input type="email" v-model="bookingForm.email" required
-                                                class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 transition-colors duration-200">
+                                                class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 transition-colors duration-200">
                                         </div>
                                         <div>
                                             <label class="block text-sm font-medium text-gray-700">Subject</label>
                                             <input type="text" v-model="bookingForm.subject" required
                                                 placeholder="Brief title for your session"
-                                                class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 transition-colors duration-200">
+                                                class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 transition-colors duration-200">
                                         </div>
                                     </div>
                                     <div class="space-y-4">
                                         <div>
                                             <label class="block text-sm font-medium text-gray-700">Phone</label>
                                             <input type="tel" v-model="bookingForm.phone" required
-                                                class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 transition-colors duration-200">
+                                                class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 transition-colors duration-200">
                                         </div>
                                         <div>
                                             <label class="block text-sm font-medium text-gray-700">Message (Optional)</label>
                                             <textarea v-model="bookingForm.message" rows="4"
-                                                class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 transition-colors duration-200"></textarea>
+                                                class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 transition-colors duration-200"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -397,48 +397,29 @@
                                         </div>
                                     </dl>
                                 </div>
-                            </div>
 
-                            <!-- Navigation Buttons -->
-                            <div class="flex justify-between pt-6">
-                                <button type="button"
-                                    v-if="currentStep > 1"
-                                    @click="prevStep"
-                                    class="inline-flex items-center px-6 py-3 border border-gray-300 shadow-sm text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                    <svg class="mr-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-                                    </svg>
-                                    Previous
-                                </button>
-                                <button v-if="currentStep < totalSteps"
-                                    type="button"
-                                    @click="nextStep"
-                                    :disabled="!canProceedToNextStep"
-                                    :class="[
-                                        'inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm',
-                                        canProceedToNextStep
-                                            ? 'text-white bg-indigo-600 hover:bg-indigo-700'
-                                            : 'text-gray-400 bg-gray-200 cursor-not-allowed'
-                                    ]">
-                                    Next
-                                    <svg class="ml-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                                    </svg>
-                                </button>
-                                <button v-else
-                                    type="submit"
-                                    :disabled="bookingForm.processing || !canProceedToNextStep"
-                                    :class="[
-                                        'inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm',
-                                        canProceedToNextStep && !bookingForm.processing
-                                            ? 'text-white bg-indigo-600 hover:bg-indigo-700'
-                                            : 'text-gray-400 bg-gray-200 cursor-not-allowed'
-                                    ]">
-                                    {{ bookingForm.processing ? 'Booking...' : 'Confirm Booking' }}
-                                    <svg class="ml-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                                    </svg>
-                                </button>
+                                <ReCaptcha action="booking" @update:token="updateBookingReCaptchaToken" />
+
+                                <div class="flex justify-between pt-6">
+                                    <button type="button"
+                                        v-if="currentStep > 1"
+                                        @click="prevStep"
+                                        class="inline-flex items-center px-6 py-3 border border-gray-300 shadow-sm text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500">
+                                        <svg class="mr-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                                        </svg>
+                                        Previous
+                                    </button>
+
+                                    <button type="submit"
+                                        :disabled="!canProceedToNextStep || bookingForm.processing || !bookingForm['g-recaptcha-token']"
+                                        class="inline-flex items-center px-6 py-3 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 disabled:opacity-50 disabled:cursor-not-allowed">
+                                        Submit Booking
+                                        <svg class="ml-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                        </svg>
+                                    </button>
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -460,7 +441,14 @@
                         <div class="px-6 py-8">
                             <div class="flex items-center">
                                 <div class="flex-shrink-0 h-12 w-12">
-                                    <img class="h-12 w-12 rounded-full" :src="story.image" :alt="story.name">
+                                    <template v-if="story.image">
+                                        <img class="h-12 w-12 rounded-full" :src="story.image" :alt="story.name">
+                                    </template>
+                                    <template v-else>
+                                        <div :class="[story.bgColor, 'h-12 w-12 rounded-full flex items-center justify-center']">
+                                            <span class="text-white font-medium text-lg">{{ story.initials }}</span>
+                                        </div>
+                                    </template>
                                 </div>
                                 <div class="ml-4">
                                     <h3 class="text-lg font-medium text-gray-900">{{ story.name }}</h3>
@@ -517,7 +505,7 @@
                                         id="contact-name"
                                         v-model="contactForm.name" 
                                         required
-                                        class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                        class="block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 sm:text-sm"
                                         placeholder="John Doe">
                                 </div>
                             </div>
@@ -529,7 +517,7 @@
                                         id="contact-email"
                                         v-model="contactForm.email" 
                                         required
-                                        class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                        class="block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 sm:text-sm"
                                         placeholder="you@example.com">
                                 </div>
                             </div>
@@ -540,7 +528,7 @@
                                     <input type="tel" 
                                         id="contact-phone"
                                         v-model="contactForm.phone" 
-                                        class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                        class="block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 sm:text-sm"
                                         placeholder="+1 (555) 000-0000">
                                 </div>
                             </div>
@@ -555,7 +543,7 @@
                                         id="contact-subject"
                                         v-model="contactForm.subject" 
                                         required
-                                        class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                        class="block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 sm:text-sm"
                                         placeholder="How can we help?">
                                 </div>
                             </div>
@@ -568,18 +556,20 @@
                                         v-model="contactForm.message" 
                                         rows="6" 
                                         required
-                                        class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                        class="block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 sm:text-sm"
                                         placeholder="Tell us how we can help..."></textarea>
                                 </div>
                             </div>
                         </div>
                     </div>
 
+                    <ReCaptcha action="contact" @update:token="updateContactReCaptchaToken" />
+
                     <!-- Submit Button -->
                     <div class="mt-6">
                         <button type="submit"
-                            :disabled="contactForm.processing"
-                            class="w-full inline-flex justify-center items-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200">
+                            :disabled="contactForm.processing || !contactForm['g-recaptcha-token']"
+                            class="w-full inline-flex justify-center items-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200">
                             <svg v-if="contactForm.processing" class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                                 <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
@@ -594,37 +584,26 @@
         <!-- Footer -->
         <footer class="bg-gray-800">
             <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                    <div class="col-span-1 md:col-span-2">
+                        <div class="flex items-center mb-6">
+                            <h2 class="text-white text-2xl font-bold">Mentoach</h2>
+                        </div>
+                        <p class="text-gray-300 text-sm max-w-md">
+                            Guiding your path and empowering your future through expert mentorship and career coaching services.
+                        </p>
+                    </div>
                     <div>
                         <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase">Company</h3>
                         <ul class="mt-4 space-y-4">
                             <li>
-                                <a href="#" class="text-base text-gray-300 hover:text-white">About</a>
+                                <a href="#about" class="text-base text-gray-300 hover:text-white">About</a>
                             </li>
                             <li>
-                                <a href="#" class="text-base text-gray-300 hover:text-white">Careers</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase">Services</h3>
-                        <ul class="mt-4 space-y-4">
-                            <li>
-                                <a href="#" class="text-base text-gray-300 hover:text-white">Career Coaching</a>
+                                <a href="#services" class="text-base text-gray-300 hover:text-white">Services</a>
                             </li>
                             <li>
-                                <a href="#" class="text-base text-gray-300 hover:text-white">Mentorship</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase">Resources</h3>
-                        <ul class="mt-4 space-y-4">
-                            <li>
-                                <a href="#" class="text-base text-gray-300 hover:text-white">Blog</a>
-                            </li>
-                            <li>
-                                <a href="#" class="text-base text-gray-300 hover:text-white">Events</a>
+                                <a href="#testimonials" class="text-base text-gray-300 hover:text-white">Testimonials</a>
                             </li>
                         </ul>
                     </div>
@@ -635,15 +614,20 @@
                                 <a href="#booking" class="text-base text-gray-300 hover:text-white">Book a Session</a>
                             </li>
                             <li>
-                                <a href="#" class="text-base text-gray-300 hover:text-white">Support</a>
+                                <a href="#contact" class="text-base text-gray-300 hover:text-white">Contact Form</a>
                             </li>
                         </ul>
                     </div>
                 </div>
                 <div class="mt-8 border-t border-gray-700 pt-8">
-                    <p class="text-base text-gray-400 xl:text-center">
-                        &copy; 2024 Mentoach. All rights reserved.
-                    </p>
+                    <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+                        <p class="text-base text-gray-400">
+                            &copy; 2024 Mentoach. All rights reserved.
+                        </p>
+                        <p class="text-base text-gray-400">
+                            Designed and developed by <a href="https://iiadigital.co.uk" target="_blank" rel="noopener noreferrer" class="text-white hover:text-orange-500 transition-colors duration-200">iiadigital.co.uk</a>
+                        </p>
+                    </div>
                 </div>
             </div>
         </footer>
@@ -656,6 +640,7 @@ import { ref, computed } from 'vue';
 import DatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
 import { useForm, usePage } from '@inertiajs/vue3';
+import ReCaptcha from '@/Components/ReCaptcha.vue';
 
 defineProps({
     canLogin: Boolean,
@@ -722,19 +707,25 @@ const successStories = [
         name: 'Rishael',
         role: 'High School Student',
         story: 'Through our mentorship program, she developed better study habits, gained confidence, and secured a place at a prestigious university.',
-        image: '/path/to/student-image.jpg'
+        image: null,
+        initials: 'R',
+        bgColor: 'bg-orange-500'
     },
     {
         name: 'Tom',
         role: 'Career Transitioner',
         story: 'Successfully transitioned into a new career in the tech industry after 15 years in a different field.',
-        image: '/path/to/professional-image.jpg'
+        image: null,
+        initials: 'T',
+        bgColor: 'bg-navy-800'
     },
     {
         name: 'Aisha',
         role: 'Recent Graduate',
         story: 'Landed a full-time position at a leading marketing firm after refining her resume and interview skills.',
-        image: '/path/to/graduate-image.jpg'
+        image: null,
+        initials: 'A',
+        bgColor: 'bg-indigo-600'
     }
 ];
 
@@ -783,14 +774,14 @@ const whyChooseUs = [
 
 // Booking form
 const bookingForm = useForm({
+    service: '',
+    preferred_date: '',
     name: '',
     email: '',
     phone: '',
-    service: '',
     subject: '',
     message: '',
-    preferred_date: '',
-    duration: 60
+    'g-recaptcha-token': '',
 });
 
 const page = usePage();
@@ -836,6 +827,7 @@ const contactForm = useForm({
     email: '',
     subject: '',
     message: '',
+    'g-recaptcha-token': '',
 });
 
 const submitContact = () => {
@@ -845,6 +837,10 @@ const submitContact = () => {
             showContactSuccess.value = true;
         },
     });
+};
+
+const updateContactReCaptchaToken = (token) => {
+    contactForm['g-recaptcha-token'] = token;
 };
 
 const showBookingSuccess = ref(false);
@@ -901,6 +897,10 @@ const prevStep = () => {
 
 // First, add the isOpen ref in the script setup section after other refs
 const isOpen = ref(false);
+
+const updateBookingReCaptchaToken = (token) => {
+    bookingForm['g-recaptcha-token'] = token;
+};
 </script>
 
 <style>

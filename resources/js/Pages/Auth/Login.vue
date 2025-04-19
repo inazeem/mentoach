@@ -5,6 +5,7 @@ import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
+import ReCaptcha from '@/Components/ReCaptcha.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 
 defineProps({
@@ -20,12 +21,17 @@ const form = useForm({
     email: '',
     password: '',
     remember: false,
+    'g-recaptcha-token': '',
 });
 
 const submit = () => {
     form.post(route('login'), {
         onFinish: () => form.reset('password'),
     });
+};
+
+const updateReCaptchaToken = (token) => {
+    form['g-recaptcha-token'] = token;
 };
 </script>
 
@@ -78,11 +84,13 @@ const submit = () => {
                 </label>
             </div>
 
+            <ReCaptcha action="login" @update:token="updateReCaptchaToken" />
+
             <div class="mt-4 flex items-center justify-end">
                 <Link
                     v-if="canResetPassword"
                     :href="route('password.request')"
-                    class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                    class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2"
                 >
                     Forgot your password?
                 </Link>

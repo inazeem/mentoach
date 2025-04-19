@@ -10,10 +10,21 @@ use Inertia\Inertia;
 use Inertia\Response;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\NewEnquiryNotification;
+use App\Mail\EnquiryAssignedNotification;
+use App\Mail\EnquiryRejectedNotification;
+use App\Mail\EnquiryConvertedNotification;
 
 class EnquiryController extends Controller
 {
     use AuthorizesRequests;
+
+    public function __construct()
+    {
+        $this->middleware('auth')->except(['store']);
+        $this->middleware('recaptcha')->only('store');
+    }
 
     public function index(): Response
     {
@@ -32,15 +43,21 @@ class EnquiryController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
-            'phone' => 'nullable|string|max:20',
+            'phone' => 'required|string|max:20',
             'subject' => 'required|string|max:255',
-            'message' => 'required|string',
-            'service' => 'required|string',
-            'preferred_date' => 'nullable|date',
-            'duration' => 'nullable|integer|min:15|max:180'
+            'message' => 'nullable|string',
+            'service' => 'required|string|max:255',
+            'preferred_date' => 'required|date',
+            'g-recaptcha-token' => 'required|string',
         ]);
 
-        $enquiry = Enquiry::create($validated);
+        // Remove reCAPTCHA token from enquiry data
+        $enquiryData = array_diff_key($validated, ['g-recaptcha-token' => '']);
+
+        $enquiry = Enquiry::create($enquiryData);
+
+        // Send notification email
+        Mail::to(config('mail.from.address'))->send(new NewEnquiryNotification($enquiry));
 
         if ($request->wantsJson()) {
             return response()->json(['message' => 'Enquiry submitted successfully']);
@@ -72,6 +89,9 @@ class EnquiryController extends Controller
             'status' => 'assigned'
         ]);
 
+        // Send notification email
+        Mail::to(config('mail.from.address'))->send(new EnquiryAssignedNotification($enquiry));
+
         return redirect()->back()->with('success', 'Mentor assigned successfully');
     }
 
@@ -99,6 +119,9 @@ class EnquiryController extends Controller
         // Update enquiry status
         $enquiry->update(['status' => 'converted']);
 
+        // Send notification email
+        Mail::to(config('mail.from.address'))->send(new EnquiryConvertedNotification($enquiry));
+
         return redirect()->route('appointments.index')->with('success', 'Enquiry converted to appointment successfully');
     }
 
@@ -107,6 +130,9 @@ class EnquiryController extends Controller
         $this->authorize('update', $enquiry);
 
         $enquiry->update(['status' => 'rejected']);
+
+        // Send notification email
+        Mail::to(config('mail.from.address'))->send(new EnquiryRejectedNotification($enquiry));
 
         return redirect()->back()->with('success', 'Enquiry rejected');
     }

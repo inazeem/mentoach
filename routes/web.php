@@ -9,6 +9,8 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Models\User;
+use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 Route::get('/', function () {
     $mentors = User::where('role', 'mentor')
@@ -46,5 +48,21 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 // Contact Form Route
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+
+Route::middleware('guest')->group(function () {
+    Route::get('register', [RegisteredUserController::class, 'create'])
+        ->name('register');
+
+    Route::post('register', [RegisteredUserController::class, 'store'])
+        ->middleware(['recaptcha']);
+
+    Route::get('login', [AuthenticatedSessionController::class, 'create'])
+        ->name('login');
+
+    Route::post('login', [AuthenticatedSessionController::class, 'store'])
+        ->middleware(['recaptcha']);
+
+    // ... other auth routes ...
+});
 
 require __DIR__.'/auth.php';
