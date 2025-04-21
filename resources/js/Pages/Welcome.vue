@@ -149,50 +149,48 @@
                     </div>
                 </div>
 
-                <div class="space-y-8">
+                <div class="grid md:grid-cols-2 gap-8 lg:gap-12">
                     <div v-for="(service, index) in services" :key="service.title"
-                        class="relative group"
-                        :class="{'mt-16': index > 0}">
-                        
-                        <!-- Service Card -->
-                        <div class="relative bg-white rounded-2xl shadow-xl overflow-hidden">
-                            <!-- Top Accent Border -->
-                            <div class="h-2 bg-orange-500"></div>
+                        class="group transform transition-all duration-300 hover:-translate-y-1">
+                        <div class="relative h-full bg-white rounded-2xl shadow-lg overflow-hidden transition-shadow duration-300 hover:shadow-2xl">
+                            <!-- Top Accent Border with Gradient -->
+                            <div class="h-2 bg-gradient-to-r from-orange-500 to-orange-600"></div>
                             
-                            <div class="grid lg:grid-cols-3 gap-0">
-                                <!-- Content Section -->
-                                <div class="p-8 lg:p-10 lg:col-span-2">
-                                    <div class="flex items-center space-x-4 mb-6">
-                                        <div class="p-3 rounded-xl bg-orange-100">
-                                            <svg class="h-8 w-8 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" :d="service.icon" />
+                            <div class="p-8">
+                                <div class="flex items-center space-x-4 mb-6">
+                                    <div class="p-3 rounded-xl bg-gradient-to-br from-orange-100 to-orange-50 transform transition-transform duration-300 group-hover:scale-110">
+                                        <svg class="h-8 w-8 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" :d="service.icon" />
+                                        </svg>
+                                    </div>
+                                    <h3 class="text-2xl font-bold text-gray-900 group-hover:text-orange-600 transition-colors duration-300">{{ service.title }}</h3>
+                                </div>
+                                
+                                <p class="text-lg text-gray-600 mb-8 leading-relaxed">{{ service.description }}</p>
+                                
+                                <!-- Features Grid with Animation -->
+                                <div class="grid gap-4">
+                                    <div v-for="(feature, featureIndex) in service.features" :key="feature"
+                                        class="flex items-start transform transition-all duration-300 hover:-translate-y-0.5"
+                                        :style="{ transitionDelay: `${featureIndex * 50}ms` }">
+                                        <div class="flex-shrink-0 h-6 w-6 rounded-full bg-gradient-to-br from-orange-100 to-orange-50 flex items-center justify-center mt-1 group-hover:from-orange-200 group-hover:to-orange-100 transition-colors duration-300">
+                                            <svg class="h-4 w-4 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
                                             </svg>
                                         </div>
-                                        <h3 class="text-2xl font-bold text-gray-900">{{ service.title }}</h3>
-                                    </div>
-                                    
-                                    <p class="text-lg text-gray-600 mb-8 leading-relaxed">{{ service.description }}</p>
-                                    
-                                    <!-- Features Grid -->
-                                    <div class="grid md:grid-cols-2 gap-6">
-                                        <div v-for="feature in service.features" :key="feature"
-                                            class="flex items-start">
-                                            <div class="flex-shrink-0 h-6 w-6 rounded-full bg-orange-100 flex items-center justify-center mt-1">
-                                                <svg class="h-4 w-4 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
-                                                </svg>
-                                            </div>
-                                            <span class="ml-3 text-gray-700">{{ feature }}</span>
-                                        </div>
+                                        <span class="ml-3 text-gray-700 group-hover:text-gray-900 transition-colors duration-300">{{ feature }}</span>
                                     </div>
                                 </div>
 
-                                <!-- Image Section -->
-                                <div class="relative lg:col-span-1 h-80 lg:h-full overflow-hidden">
-                                    <div class="absolute inset-0 bg-gradient-to-br from-indigo-900/20 to-indigo-600/20 z-10"></div>
-                                    <img :src="service.image" :alt="service.title"
-                                        class="w-full h-full object-cover"
-                                        :onerror="(e) => e.target.src = '/path/to/fallback-image.jpg'">
+                                <!-- Action Button -->
+                                <div class="mt-8">
+                                    <a href="#booking" 
+                                        class="inline-flex items-center text-orange-600 font-medium group-hover:text-orange-700 transition-colors duration-300">
+                                        Book Now
+                                        <svg class="ml-2 h-5 w-5 transform transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                                        </svg>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -581,6 +579,7 @@
                                     <input type="tel" 
                                         id="contact-phone"
                                         v-model="contactForm.phone" 
+                                        required
                                         class="block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 sm:text-sm"
                                         placeholder="+1 (555) 000-0000">
                                 </div>
@@ -941,6 +940,7 @@ const submitBooking = () => {
 const contactForm = useForm({
     name: '',
     email: '',
+    phone: '',
     subject: '',
     message: '',
     'g-recaptcha-token': '',
@@ -952,6 +952,13 @@ const submitContact = () => {
             contactForm.reset();
             showContactSuccess.value = true;
         },
+        onError: (errors) => {
+            let errorMessage = 'Please check the following:\n';
+            Object.entries(errors).forEach(([field, message]) => {
+                errorMessage += `${message}\n`;
+            });
+            alert(errorMessage);
+        }
     });
 };
 
