@@ -13,12 +13,12 @@ const token = ref(null);
 
 // Debug: Log all available environment variables
 console.log('Available env variables:', import.meta.env);
-console.log('VITE_RECAPTCHA_SITE_KEY value:', import.meta.env.VITE_RECAPTCHA_SITE_KEY);
+console.log('VITE_RECAPTCHA_SITE_KEY value:', import.meta.env.PROD.VITE_RECAPTCHA_SITE_KEY);
 
 const executeReCaptcha = async () => {
     try {
         // Debug: Log the site key value
-        console.log('Checking site key:', import.meta.env.VITE_RECAPTCHA_SITE_KEY);
+        console.log('Checking site key:', import.meta.env.PROD.VITE_RECAPTCHA_SITE_KEY);
         
         if (!import.meta.env.VITE_RECAPTCHA_SITE_KEY) {
             console.error('ReCaptcha site key is missing. Please add VITE_RECAPTCHA_SITE_KEY to your .env file');
@@ -31,7 +31,7 @@ const executeReCaptcha = async () => {
             return;
         }
         
-        token.value = await window.grecaptcha.execute(import.meta.env.VITE_RECAPTCHA_SITE_KEY, { action: props.action });
+        token.value = await window.grecaptcha.execute(import.meta.env.PROD.VITE_RECAPTCHA_SITE_KEY, { action: props.action });
         emit('update:token', token.value);
         
         // Refresh token every 2 minutes
@@ -44,7 +44,7 @@ const executeReCaptcha = async () => {
 
 onMounted(() => {
     // Debug: Log the site key value again on mount
-    console.log('Mounting with site key:', import.meta.env.VITE_RECAPTCHA_SITE_KEY);
+    console.log('Mounting with site key:', import.meta.env.PROD.ITE_RECAPTCHA_SITE_KEY);
     
     // Validate reCAPTCHA site key
     if (!import.meta.env.VITE_RECAPTCHA_SITE_KEY) {
@@ -55,7 +55,7 @@ onMounted(() => {
     // Load reCAPTCHA if not already loaded
     if (!window.grecaptcha) {
         const script = document.createElement('script');
-        script.src = `https://www.google.com/recaptcha/api.js?render=${import.meta.env.VITE_RECAPTCHA_SITE_KEY}`;
+        script.src = `https://www.google.com/recaptcha/api.js?render=${import.meta.env.PROD.VITE_RECAPTCHA_SITE_KEY}`;
         script.async = true;
         script.defer = true;
         
