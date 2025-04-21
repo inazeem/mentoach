@@ -27,6 +27,9 @@
         @routes
         @vite(['resources/js/app.js', "resources/js/Pages/{$page['component']}.vue"])
         @inertiaHead
+        <script>
+            window.RECAPTCHA_SITE_KEY = '{{ config('services.recaptcha.site_key') }}';
+        </script>
     </head>
     <body class="font-sans antialiased">
         @inertia

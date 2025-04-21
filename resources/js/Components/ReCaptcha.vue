@@ -11,51 +11,62 @@ const props = defineProps({
 const emit = defineEmits(['update:token']);
 const token = ref(null);
 
-// Debug: Log all available environment variables
-console.log('Available env variables:', import.meta.env);
-console.log('VITE_RECAPTCHA_SITE_KEY value:', import.meta.env.PROD.VITE_RECAPTCHA_SITE_KEY);
+// Try to get the site key from different possible sources
+const getSiteKey = () => {
+    // Check Vite env
+    if (import.meta.env.VITE_RECAPTCHA_SITE_KEY) {
+        return import.meta.env.VITE_RECAPTCHA_SITE_KEY;
+    }
+    
+    // Check window object (in case it's set globally)
+    if (window.RECAPTCHA_SITE_KEY) {
+        return window.RECAPTCHA_SITE_KEY;
+    }
+    
+    // Check if we're in production and have a global variable
+    if (import.meta.env.PROD && window.__INITIAL_STATE__?.recaptchaSiteKey) {
+        return window.__INITIAL_STATE__.recaptchaSiteKey;
+    }
+    
+    console.error('ReCaptcha site key is missing. Please ensure VITE_RECAPTCHA_SITE_KEY is set in your environment');
+    return null;
+};
 
 const executeReCaptcha = async () => {
     try {
-        // Debug: Log the site key value
-        console.log('Checking site key:', import.meta.env.PROD.VITE_RECAPTCHA_SITE_KEY);
-        
-        if (!import.meta.env.VITE_RECAPTCHA_SITE_KEY) {
-            console.error('ReCaptcha site key is missing. Please add VITE_RECAPTCHA_SITE_KEY to your .env file');
+        const siteKey = getSiteKey();
+        if (!siteKey) {
+            console.error('Unable to find ReCaptcha site key. Please check your environment configuration.');
             return;
         }
 
         if (!window.grecaptcha) {
             console.error('ReCaptcha not loaded');
-            setTimeout(executeReCaptcha, 1000); // Retry after 1 second
+            setTimeout(executeReCaptcha, 1000);
             return;
         }
         
-        token.value = await window.grecaptcha.execute(import.meta.env.PROD.VITE_RECAPTCHA_SITE_KEY, { action: props.action });
+        token.value = await window.grecaptcha.execute(siteKey, { action: props.action });
         emit('update:token', token.value);
         
         // Refresh token every 2 minutes
         setTimeout(executeReCaptcha, 120000);
     } catch (error) {
         console.error('ReCaptcha error:', error);
-        setTimeout(executeReCaptcha, 1000); // Retry after 1 second on error
+        setTimeout(executeReCaptcha, 1000);
     }
 };
 
 onMounted(() => {
-    // Debug: Log the site key value again on mount
-    console.log('Mounting with site key:', import.meta.env.PROD.ITE_RECAPTCHA_SITE_KEY);
-    
-    // Validate reCAPTCHA site key
-    if (!import.meta.env.VITE_RECAPTCHA_SITE_KEY) {
-        console.error('ReCaptcha site key is missing. Please add VITE_RECAPTCHA_SITE_KEY to your .env file');
+    const siteKey = getSiteKey();
+    if (!siteKey) {
         return;
     }
 
     // Load reCAPTCHA if not already loaded
     if (!window.grecaptcha) {
         const script = document.createElement('script');
-        script.src = `https://www.google.com/recaptcha/api.js?render=${import.meta.env.PROD.VITE_RECAPTCHA_SITE_KEY}`;
+        script.src = `https://www.google.com/recaptcha/api.js?render=${siteKey}`;
         script.async = true;
         script.defer = true;
         
@@ -68,7 +79,6 @@ onMounted(() => {
         script.onerror = (error) => {
             console.error('Failed to load ReCaptcha script:', error);
             setTimeout(() => {
-                // Remove failed script and try again
                 script.remove();
                 onMounted();
             }, 2000);
