@@ -117,6 +117,9 @@ class EnquiryController extends BaseController
             return redirect()->back()->with('error', 'Cannot convert enquiry without an assigned mentor.');
         }
 
+        // Get the current authenticated user who is converting the enquiry
+        $convertedBy = auth()->user();
+
         // Create appointment from enquiry
         $appointment = new \App\Models\Appointment([
             'user_id' => auth()->id(),
@@ -133,8 +136,8 @@ class EnquiryController extends BaseController
         // Update enquiry status
         $enquiry->update(['status' => 'converted']);
 
-        // Send notification email
-        Mail::to(config('mail.from.address'))->send(new EnquiryConvertedNotification($enquiry));
+        // Send notification email with both required parameters
+        Mail::to(config('mail.from.address'))->send(new EnquiryConvertedNotification($enquiry, $convertedBy));
 
         return redirect()->route('appointments.index')->with('success', 'Enquiry converted to appointment successfully');
     }
