@@ -11,8 +11,15 @@ const props = defineProps({
 const emit = defineEmits(['update:token']);
 const token = ref(null);
 
+// Debug: Log all available environment variables
+console.log('Available env variables:', import.meta.env);
+console.log('VITE_RECAPTCHA_SITE_KEY value:', import.meta.env.VITE_RECAPTCHA_SITE_KEY);
+
 const executeReCaptcha = async () => {
     try {
+        // Debug: Log the site key value
+        console.log('Checking site key:', import.meta.env.VITE_RECAPTCHA_SITE_KEY);
+        
         if (!import.meta.env.VITE_RECAPTCHA_SITE_KEY) {
             console.error('ReCaptcha site key is missing. Please add VITE_RECAPTCHA_SITE_KEY to your .env file');
             return;
@@ -36,6 +43,9 @@ const executeReCaptcha = async () => {
 };
 
 onMounted(() => {
+    // Debug: Log the site key value again on mount
+    console.log('Mounting with site key:', import.meta.env.VITE_RECAPTCHA_SITE_KEY);
+    
     // Validate reCAPTCHA site key
     if (!import.meta.env.VITE_RECAPTCHA_SITE_KEY) {
         console.error('ReCaptcha site key is missing. Please add VITE_RECAPTCHA_SITE_KEY to your .env file');
