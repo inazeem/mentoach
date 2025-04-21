@@ -13,22 +13,22 @@ const token = ref(null);
 
 // Try to get the site key from different possible sources
 const getSiteKey = () => {
-    // Check Vite env
+    // First priority: window object from blade template
+    if (window.RECAPTCHA_SITE_KEY && window.RECAPTCHA_SITE_KEY !== '') {
+        return window.RECAPTCHA_SITE_KEY;
+    }
+    
+    // Second priority: Vite env
     if (import.meta.env.VITE_RECAPTCHA_SITE_KEY) {
         return import.meta.env.VITE_RECAPTCHA_SITE_KEY;
     }
     
-    // Check window object (in case it's set globally)
-    if (window.RECAPTCHA_SITE_KEY) {
-        return window.RECAPTCHA_SITE_KEY;
-    }
-    
-    // Check if we're in production and have a global variable
-    if (import.meta.env.PROD && window.__INITIAL_STATE__?.recaptchaSiteKey) {
+    // Third priority: global state in production
+    if (window.__INITIAL_STATE__?.recaptchaSiteKey) {
         return window.__INITIAL_STATE__.recaptchaSiteKey;
     }
     
-    console.error('ReCaptcha site key is missing. Please ensure VITE_RECAPTCHA_SITE_KEY is set in your environment');
+    console.error('ReCaptcha site key is missing. Please ensure RECAPTCHA_SITE_KEY is set in your environment');
     return null;
 };
 
@@ -95,4 +95,4 @@ onMounted(() => {
 
 <template>
     <div class="g-recaptcha" data-size="invisible"></div>
-</template> 
+</template>
