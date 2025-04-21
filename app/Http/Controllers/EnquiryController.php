@@ -96,13 +96,15 @@ class EnquiryController extends BaseController
             'mentor_id' => ['required', 'exists:users,id']
         ]);
 
+        $assignedMentor = User::findOrFail($validated['mentor_id']);
+
         $enquiry->update([
             'assigned_mentor_id' => $validated['mentor_id'],
             'status' => 'assigned'
         ]);
 
         // Send notification email
-        Mail::to(config('mail.from.address'))->send(new EnquiryAssignedNotification($enquiry));
+        Mail::to(config('mail.from.address'))->send(new EnquiryAssignedNotification($enquiry, $assignedMentor));
 
         return redirect()->back()->with('success', 'Mentor assigned successfully');
     }

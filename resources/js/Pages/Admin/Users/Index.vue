@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch } from 'vue';
+import { ref, watch, computed } from 'vue';
 import { Head, useForm } from '@inertiajs/vue3';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import TextInput from '@/Components/TextInput.vue';
@@ -17,6 +17,7 @@ const props = defineProps({
 });
 
 const searchQuery = ref('');
+const roleFilter = ref('all');
 const showCreateModal = ref(false);
 const showDeleteModal = ref(false);
 const userToDelete = ref(null);
@@ -30,6 +31,16 @@ const form = useForm({
 
 const roleForm = useForm({
     role: '',
+});
+
+// Computed property for filtered users
+const filteredUsers = computed(() => {
+    return props.users.data.filter(user => {
+        const matchesSearch = user.name.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
+                            user.email.toLowerCase().includes(searchQuery.value.toLowerCase());
+        const matchesRole = roleFilter.value === 'all' || user.role === roleFilter.value;
+        return matchesSearch && matchesRole;
+    });
 });
 
 const handleSubmit = () => {
@@ -76,17 +87,28 @@ const updateRole = (user, newRole) => {
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900">
                         <!-- Header Actions -->
-                        <div class="flex justify-between items-center mb-6">
-                            <div class="flex items-center">
+                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+                            <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 w-full sm:w-auto">
                                 <TextInput
                                     v-model="searchQuery"
                                     type="text"
-                                    class="w-64"
+                                    class="w-full sm:w-64"
                                     placeholder="Search users..."
                                 />
+                                <select
+                                    v-model="roleFilter"
+                                    class="mt-1 block w-full sm:w-40 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                >
+                                    <option value="all">All Roles</option>
+                                    <option value="user">User</option>
+                                    <option value="admin">Admin</option>
+                                </select>
                             </div>
-                            <PrimaryButton @click="showCreateModal = true">
-                                Create New User
+                            <PrimaryButton 
+                                @click="showCreateModal = true"
+                                class="w-auto px-4 py-2 text-sm"
+                            >
+                                Add New User
                             </PrimaryButton>
                         </div>
 
@@ -102,7 +124,7 @@ const updateRole = (user, newRole) => {
                                     </tr>
                                 </thead>
                                 <tbody class="bg-white divide-y divide-gray-200">
-                                    <tr v-for="user in props.users.data" :key="user.id">
+                                    <tr v-for="user in filteredUsers" :key="user.id">
                                         <td class="px-6 py-4 whitespace-nowrap">{{ user.name }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap">{{ user.email }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap">
@@ -118,10 +140,15 @@ const updateRole = (user, newRole) => {
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <DangerButton
                                                 @click="confirmUserDeletion(user)"
-                                                class="ml-2"
+                                                class="text-sm px-3 py-1"
                                             >
                                                 Delete
                                             </DangerButton>
+                                        </td>
+                                    </tr>
+                                    <tr v-if="filteredUsers.length === 0">
+                                        <td colspan="4" class="px-6 py-4 text-center text-gray-500">
+                                            No users found matching your search criteria
                                         </td>
                                     </tr>
                                 </tbody>
