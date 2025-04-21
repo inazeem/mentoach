@@ -13,6 +13,11 @@ const token = ref(null);
 
 const executeReCaptcha = async () => {
     try {
+        if (!import.meta.env.VITE_RECAPTCHA_SITE_KEY) {
+            console.error('ReCaptcha site key is missing. Please add VITE_RECAPTCHA_SITE_KEY to your .env file');
+            return;
+        }
+
         if (!window.grecaptcha) {
             console.error('ReCaptcha not loaded');
             setTimeout(executeReCaptcha, 1000); // Retry after 1 second
@@ -31,6 +36,12 @@ const executeReCaptcha = async () => {
 };
 
 onMounted(() => {
+    // Validate reCAPTCHA site key
+    if (!import.meta.env.VITE_RECAPTCHA_SITE_KEY) {
+        console.error('ReCaptcha site key is missing. Please add VITE_RECAPTCHA_SITE_KEY to your .env file');
+        return;
+    }
+
     // Load reCAPTCHA if not already loaded
     if (!window.grecaptcha) {
         const script = document.createElement('script');
