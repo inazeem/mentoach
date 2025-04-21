@@ -137,57 +137,57 @@
         </div>
 
         <!-- Services Section -->
-        <div id="services" class="py-24 bg-gradient-to-b from-gray-50 via-white to-gray-50">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-20">
+        <div id="services" class="py-16 bg-gradient-to-b from-gray-50 via-white to-gray-50">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
                     <span class="text-orange-500 font-semibold tracking-wide uppercase text-sm">What We Offer</span>
-                    <h2 class="mt-3 text-4xl md:text-5xl font-bold text-gray-900 tracking-tight">
+                    <h2 class="mt-2 text-3xl md:text-4xl font-bold text-gray-900 tracking-tight">
                         Transform Your Journey
                     </h2>
-                    <div class="mt-4 max-w-3xl mx-auto">
-                        <p class="text-xl text-gray-500">Choose the path that best fits your goals. Each service is crafted to deliver exceptional results.</p>
+                    <div class="mt-3 max-w-2xl mx-auto">
+                        <p class="text-lg text-gray-500">Choose the path that best fits your goals. Each service is crafted to deliver exceptional results.</p>
                     </div>
                 </div>
 
-                <div class="grid md:grid-cols-2 gap-8 lg:gap-12">
-                    <div v-for="(service, index) in services" :key="service.title"
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div v-for="service in services" :key="service.title"
                         class="group transform transition-all duration-300 hover:-translate-y-1">
-                        <div class="relative h-full bg-white rounded-2xl shadow-lg overflow-hidden transition-shadow duration-300 hover:shadow-2xl">
+                        <div class="relative h-full bg-white rounded-xl shadow-md overflow-hidden transition-shadow duration-300 hover:shadow-lg">
                             <!-- Top Accent Border with Gradient -->
-                            <div class="h-2 bg-gradient-to-r from-orange-500 to-orange-600"></div>
+                            <div class="h-1 bg-gradient-to-r from-orange-500 to-orange-600"></div>
                             
-                            <div class="p-8">
-                                <div class="flex items-center space-x-4 mb-6">
-                                    <div class="p-3 rounded-xl bg-gradient-to-br from-orange-100 to-orange-50 transform transition-transform duration-300 group-hover:scale-110">
-                                        <svg class="h-8 w-8 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <div class="p-6">
+                                <div class="flex items-center space-x-3 mb-4">
+                                    <div class="p-2 rounded-lg bg-gradient-to-br from-orange-100 to-orange-50 transform transition-transform duration-300 group-hover:scale-110">
+                                        <svg class="h-6 w-6 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" :d="service.icon" />
                                         </svg>
                                     </div>
-                                    <h3 class="text-2xl font-bold text-gray-900 group-hover:text-orange-600 transition-colors duration-300">{{ service.title }}</h3>
+                                    <h3 class="text-xl font-bold text-gray-900 group-hover:text-orange-600 transition-colors duration-300">{{ service.title }}</h3>
                                 </div>
                                 
-                                <p class="text-lg text-gray-600 mb-8 leading-relaxed">{{ service.description }}</p>
+                                <p class="text-base text-gray-600 mb-6 leading-relaxed">{{ service.description }}</p>
                                 
                                 <!-- Features Grid with Animation -->
-                                <div class="grid gap-4">
+                                <div class="grid gap-3">
                                     <div v-for="(feature, featureIndex) in service.features" :key="feature"
                                         class="flex items-start transform transition-all duration-300 hover:-translate-y-0.5"
                                         :style="{ transitionDelay: `${featureIndex * 50}ms` }">
-                                        <div class="flex-shrink-0 h-6 w-6 rounded-full bg-gradient-to-br from-orange-100 to-orange-50 flex items-center justify-center mt-1 group-hover:from-orange-200 group-hover:to-orange-100 transition-colors duration-300">
-                                            <svg class="h-4 w-4 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <div class="flex-shrink-0 h-5 w-5 rounded-full bg-gradient-to-br from-orange-100 to-orange-50 flex items-center justify-center mt-0.5 group-hover:from-orange-200 group-hover:to-orange-100 transition-colors duration-300">
+                                            <svg class="h-3 w-3 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
                                             </svg>
                                         </div>
-                                        <span class="ml-3 text-gray-700 group-hover:text-gray-900 transition-colors duration-300">{{ feature }}</span>
+                                        <span class="ml-2 text-sm text-gray-700 group-hover:text-gray-900 transition-colors duration-300">{{ feature }}</span>
                                     </div>
                                 </div>
 
                                 <!-- Action Button -->
-                                <div class="mt-8">
+                                <div class="mt-6">
                                     <a href="#booking" 
-                                        class="inline-flex items-center text-orange-600 font-medium group-hover:text-orange-700 transition-colors duration-300">
+                                        class="inline-flex items-center text-sm text-orange-600 font-medium group-hover:text-orange-700 transition-colors duration-300">
                                         Book Now
-                                        <svg class="ml-2 h-5 w-5 transform transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <svg class="ml-2 h-4 w-4 transform transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                                         </svg>
                                     </a>
